@@ -1,0 +1,4 @@
+com\mycompany\videoclub\DAO\IAlquilanImpl.class
+com\mycompany\videoclub\Modelos\Alquila.class
+com\mycompany\videoclub\DAO\BaseDatos.class
+com\mycompany\videoclub\DAO\Interfaces\IAlquilan.class

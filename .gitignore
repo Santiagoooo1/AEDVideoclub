@@ -1,0 +1,12 @@
+build/ 
+nbproject/private/ 
+dist/ 
+*.class 
+*.jar 
+*.war 
+*.log 
+*.iml 
+.idea/ 
+.vscode/ 
+.DS_Store 
+Thumbs.db 

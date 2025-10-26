@@ -42,11 +42,6 @@ public class BaseDatos {
             }
         }
     }
-
-    public static void main(String[] args) {
-        BaseDatos bd = new BaseDatos();
-        bd.cerrarConexion();
-    }
 }
 
 

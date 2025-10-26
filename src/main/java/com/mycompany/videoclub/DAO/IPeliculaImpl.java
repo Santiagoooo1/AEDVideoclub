@@ -65,8 +65,7 @@ public class IPeliculaImpl implements IPelicula {
             return false;
         }
     }
-
-    // ⚡ NUEVO: inserta película y crea N copias en una sola transacción
+    
     public boolean agregarPeliculaConCopias(Peliculas p) {
         BaseDatos base = new BaseDatos();
         try (Connection conn = base.getConexion()) {
@@ -74,7 +73,7 @@ public class IPeliculaImpl implements IPelicula {
             conn.setAutoCommit(false);
 
             int idPelicula;
-            // 1) Insertar película recuperando ID
+
             try (PreparedStatement ps = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, p.getTitulo());
                 ps.setString(2, p.getDirector());
@@ -93,7 +92,6 @@ public class IPeliculaImpl implements IPelicula {
                 }
             }
 
-            // 2) Crear N copias
             try (PreparedStatement psCopia = conn.prepareStatement(SQL_INSERT_COPIA)) {
                 for (int i = 0; i < p.getCantidad(); i++) {
                     psCopia.setInt(1, idPelicula);
@@ -118,7 +116,6 @@ public class IPeliculaImpl implements IPelicula {
         try (Connection conn = base.getConexion()) {
             if (conn == null) return false;
 
-            // Si tu FK es RESTRICT, borra primero las copias y luego la película, en transacción
             conn.setAutoCommit(false);
 
             try (PreparedStatement psDelCopias = conn.prepareStatement(SQL_DELETE_COPIAS_BY_PELI)) {
@@ -186,7 +183,7 @@ public class IPeliculaImpl implements IPelicula {
     }
 
     @Override
-    public List<Peliculas> listarPelicula() { // si quieres: renombra a listarPeliculas()
+    public List<Peliculas> listarPelicula() { 
         BaseDatos base = new BaseDatos();
         List<Peliculas> lista = new ArrayList<>();
 

@@ -72,7 +72,7 @@ public class IAlquilanImpl implements IAlquilan {
                 ps.setInt(1, a.getIdSku());
                 try (ResultSet rs = ps.executeQuery()) {
                     if (!rs.next()) { // no existe
-                        System.out.println("⚠️ No existe la copia con ID_Sku=" + a.getIdSku());
+                        System.out.println("No existe la copia con ID_Sku=" + a.getIdSku());
                         con.rollback();
                         return false;
                     }
@@ -83,7 +83,7 @@ public class IAlquilanImpl implements IAlquilan {
                 ps.setInt(1, a.getIdSku());
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        System.out.println("⚠️ La copia ya está alquilada (alquiler activo).");
+                        System.out.println("La copia ya está alquilada (alquiler activo).");
                         con.rollback();
                         return false;
                     }
@@ -96,7 +96,7 @@ public class IAlquilanImpl implements IAlquilan {
                 updated = ps.executeUpdate();
             }
             if (updated == 0) { // otra carrera la tomó antes
-                System.out.println("⚠️ No se pudo reservar la copia (ya no está disponible).");
+                System.out.println("No se pudo reservar la copia (ya no está disponible).");
                 con.rollback();
                 return false;
             }
@@ -230,7 +230,7 @@ public class IAlquilanImpl implements IAlquilan {
                 }
             }
             if (sku == null) {
-                System.out.println("⚠️ No existe alquiler activo con ID=" + idAlquila);
+                System.out.println("No existe alquiler activo con ID=" + idAlquila);
                 con.rollback();
                 return false;
             }
@@ -242,7 +242,7 @@ public class IAlquilanImpl implements IAlquilan {
                 upd = ps.executeUpdate();
             }
             if (upd == 0) {
-                System.out.println("⚠️ Ya estaba devuelto o no existe.");
+                System.out.println("Ya estaba devuelto o no existe.");
                 con.rollback();
                 return false;
             }
@@ -253,7 +253,7 @@ public class IAlquilanImpl implements IAlquilan {
             }
 
             con.commit();
-            System.out.println("✅ Devolución registrada. ID=" + idAlquila + ", SKU=" + sku);
+            System.out.println("Devolución registrada. ID=" + idAlquila + ", SKU=" + sku);
             return true;
 
         } catch (SQLException e) {

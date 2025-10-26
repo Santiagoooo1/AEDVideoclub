@@ -82,21 +82,22 @@ public class IClienteImpl implements ICliente {
         }
     }
 
-    @Override
-    public boolean actualizarCliente(Clientes c) {
-            BaseDatos base= new BaseDatos ();
-            String sql="UPDATE SET CLIENTES DNI=?, Nombre=?, Apellidos=?, Direccion=?, Telefono=?, Categoria=?" + 
-                    "WHERE ID_Cliente=?";
-            
-            try(Connection conn=base.getConexion();
-                PreparedStatement ps = conn.prepareStatement(sql)){
-                ps.setString(1, c.getDni());
-                ps.setString(2, c.getNombre());
-                ps.setString(1, c.getApellidos());
-                ps.setString(4, c.getDireccion());
-                ps.setString(5, c.getTelefono());
-                ps.setString(6, (c.getCategoria()==null) ? "Normal" : categoriaToDb(c.getCategoria()));
-                ps.setInt(7, c.getIdCliente());
+@Override
+public boolean actualizarCliente(Clientes c) {
+    BaseDatos base = new BaseDatos();
+    String sql = "UPDATE CLIENTES SET DNI=?, Nombre=?, Apellidos=?, Direccion=?, Telefono=?, Categoria=? " +
+                 "WHERE ID_Cliente=?";
+
+    try (Connection conn = base.getConexion();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, c.getDni());
+        ps.setString(2, c.getNombre());
+        ps.setString(3, c.getApellidos());
+        ps.setString(4, c.getDireccion());
+        ps.setString(5, c.getTelefono());
+        ps.setString(6, (c.getCategoria() == null) ? "Normal" : categoriaToDb(c.getCategoria()));
+        ps.setInt(7, c.getIdCliente());
 
         return ps.executeUpdate() > 0;
 
@@ -106,10 +107,8 @@ public class IClienteImpl implements ICliente {
     } finally {
         base.cerrarConexion();
     }
-                
-      
-                    
-    }
+}
+
 
     @Override
 public Optional<Clientes> obtenerPorId(int idCliente) {
